@@ -31,17 +31,46 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const one = inventors.filter(function(item){
+      return (1499 < item.year) & (item.year < 1600);
+    });
+
+    console.log(one);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const two = inventors.map(function(item){
+      return item.first + ' ' + item.last;
+    });
+
+    console.log(two);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const three = inventors.sort(function(a, b){
+      return a.year - b.year;
+    });
+
+    console.log(three);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const four = inventors.reduce(function(acc, curVal) {
+      return acc + (curVal.passed - curVal.year);
+    }, 0);
+
+    console.log(four);
 
     // 5. Sort the inventors by years lived
+    const five = inventors.sort(function(a, b){
+      function life(inventor){
+        return inventor.passed - inventor.year;
+      }
+
+      return life(a) - life(b);
+    });
+
+    console.log(five);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -50,9 +79,31 @@
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const seven = people.sort(function(a, b){
+      function lastName(person){
+        return person.split(',')[0];
+      }
+
+      return lastName(a) > lastName(b);
+    });
+
+    console.log(seven);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const eight = data.reduce(function(acc, curVal) {
+      if (!acc[curVal]) {
+        acc[curVal] = 0;
+      } 
+      
+      acc[curVal]++;
+
+      return acc;
+    }, {});
+
+    console.log(eight);
 
   </script>
 </body>

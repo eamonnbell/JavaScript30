@@ -99,6 +99,52 @@
   </div>
 
 <script>
+
+let lastClicked;
+
+const checkboxes = document.querySelectorAll("input[type='checkbox']");
+checkboxes.forEach(el => el.addEventListener('click', handleClick));
+
+function indexOfElement(nodeList, el) {
+  return Array.prototype.indexOf.call(nodeList, el);
+}
+
+function intRange(start, end){
+  let range = [];
+
+  for (let i = start; i < end; i++) {
+    range.push(i);
+  }
+
+  return range
+}
+
+function handleClick(e) {
+  if (!e.shiftKey) {
+    lastClicked = this;
+    return;
+  }
+
+  const justClicked = this;
+
+  const lastIndex = indexOfElement(checkboxes, lastClicked);
+  const justIndex  = indexOfElement(checkboxes, justClicked);
+
+  let innerIndices;
+
+  if (lastIndex < justIndex) {
+    innerIndices = [...intRange(lastIndex + 1, justIndex)]
+  } else {
+    innerIndices = [...intRange(justIndex + 1, lastIndex)]
+  }
+
+  innerIndices.forEach(function(index) {
+    checkboxes[index].checked = true;
+  });
+
+  lastClicked = this;
+
+}
 </script>
 </body>
 </html>
